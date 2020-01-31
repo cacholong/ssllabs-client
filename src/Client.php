@@ -2,7 +2,7 @@
 
 namespace SURFnet\SslLabs;
 
-use Guzzle\Http\Client as HttpClient;
+use GuzzleHttp\Client as HttpClient;
 use SURFnet\SslLabs\Dto\Endpoint;
 use SURFnet\SslLabs\Dto\EndpointDetails;
 use SURFnet\SslLabs\Dto\Host;
@@ -43,9 +43,7 @@ class Client
      */
     public function info()
     {
-        $request = $this->httpClient->get('info');
-
-        $response = $request->send();
+        $response = $this->httpClient->get('info');
 
         return $this->serializer->deserialize(
             $response->getBody(true),
@@ -86,9 +84,7 @@ class Client
         $arguments = array_map(function($val) { return urlencode($val); }, $arguments);
         $path = 'analyze?' . http_build_query($arguments);
 
-        $request = $this->httpClient->get($path);
-
-        $response = $request->send();
+        $response = $this->httpClient->get($path);
 
         return $this->mapJsonToHost($response->getBody(true));
     }
@@ -104,9 +100,7 @@ class Client
         $arguments = array_map(function($val) { return urlencode($val); }, $arguments);
         $path = 'getEndpointData?' . http_build_query($arguments);
 
-        $request = $this->httpClient->get($path);
-
-        $response = $request->send();
+        $response = $this->httpClient->get($path);
 
         return $this->serializer->deserialize(
             $response->getBody(true),
@@ -117,9 +111,7 @@ class Client
 
     public function getStatusCodes()
     {
-        $request = $this->httpClient->get('getStatusCodes');
-
-        $response = $request->send();
+        $response = $this->httpClient->get('getStatusCodes');
 
         return $this->serializer->deserialize(
             $response->getBody(true),

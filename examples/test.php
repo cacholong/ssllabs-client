@@ -1,6 +1,6 @@
 <?php
 
-use Guzzle\Http\Client as HttpClient;
+use GuzzleHttp\Client as HttpClient;
 use SURFnet\SslLabs\Client;
 use SURFnet\SslLabs\Dto\Endpoint;
 use SURFnet\SslLabs\Service\GradeComparatorService;
@@ -15,16 +15,14 @@ require __DIR__ . '/../vendor/autoload.php';
 ini_set('xdebug.var_display_max_depth', 8);
 date_default_timezone_set('Europe/Amsterdam');
 
-$httpClient = new HttpClient(
-    'https://api.ssllabs.com/api/v2/',
-    array(
-        'headers' => array(
-            'User-Agent' => 'Demo - SSL Labs Client v1.0 (https://github.com/surfnet/ssl-labs)',
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
-        ),
-    )
-);
+$httpClient = new HttpClient([
+    'base_uri' => 'https://api.ssllabs.com/api/v2/',
+    'headers' => [
+        'User-Agent' => 'Demo - SSL Labs Client v1.0 (https://github.com/surfnet/ssl-labs)',
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json',
+    ]
+]);
 
 $normalizer = new PropertyNormalizer();
 $serializer = new Serializer(
